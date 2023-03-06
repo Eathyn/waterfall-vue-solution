@@ -5,6 +5,7 @@
       :src="item.url"
       :id="item.tag"
     />
+    <p style="text-align: center; margin: 0">{{ item.tag }}</p>
   </div>
 </template>
 
@@ -22,11 +23,12 @@ export default {
 
 <style lang="scss" scoped>
 .waterfall-card {
+  border: 1px solid #000;
   background: #fff;
 }
 
 .waterfall-img {
-  width: 175px;
+  width: 100%;
   object-fit: cover;
 }
 </style>

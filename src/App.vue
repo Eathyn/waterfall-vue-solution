@@ -44,7 +44,9 @@ export default {
     },
 
     async getImages() {
-      const response = await fetch('http://localhost:3000/images', {
+      const serverLocalAddress = 'http://localhost:3000/images'
+      // const serverIpAddress = 'http://192.168.31.155:8082/images'
+      const response = await fetch(serverLocalAddress, {
         method: 'POST',
         body: JSON.stringify({
           page: ++this.page,
@@ -57,3 +59,9 @@ export default {
   },
 }
 </script>
+
+<style>
+body {
+  margin: 8px;
+}
+</style>

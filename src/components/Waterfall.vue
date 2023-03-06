@@ -54,7 +54,7 @@ export default {
     // 首屏开启并行渲染，减少白屏时间
     firstPageCount: {
       type: Number,
-      default: 4
+      default: 6,
     },
     animation: {
       type: String,
@@ -68,7 +68,7 @@ export default {
   },
   data() {
     return {
-      colData: []
+      colData: [],
     }
   },
   watch: {
@@ -89,8 +89,6 @@ export default {
     },
   },
   created() {
-    this.calcItemWidth()
-
     // 不支持IntersectionObserver的场景下，动态引入polyfill
     const ioPromise = checkIntersectionObserver()
       ? Promise.resolve()
@@ -128,11 +126,6 @@ export default {
     })
   },
   methods: {
-    // 根据屏幕宽度计算每一项的宽度
-    calcItemWidth() {
-
-    },
-
     // 更新瀑布流高度最小列
     updateMinCol() {
       // 并行渲染时，无法获取最小列，只能按列依次渲染
@@ -163,13 +156,11 @@ export default {
       this.appendColData()
       // 首屏采用并行渲染，非首屏采用串行渲染
       if (++count < this.firstPageCount) {
-        // Q: 为什么这里需要使用 nextTick
         this.$nextTick(() => this.waterfall())
       } else {
-        // Q: 为什么这里需要使用 nextTick
         this.$nextTick(() => this.startObserver())
       }
-    }
+    },
   },
 }
 </script>
@@ -177,6 +168,7 @@ export default {
 <style lang="scss" scoped>
 .waterfall-wrapper {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -184,6 +176,7 @@ export default {
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
+  box-sizing: border-box;
 }
 </style>
 

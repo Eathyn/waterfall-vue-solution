@@ -1,6 +1,7 @@
 const http = require('http')
 const Controller = require('./controller')
 
+// const PORT = 8082
 const PORT = 3000
 
 const server = http.createServer()
@@ -27,4 +28,10 @@ server.on('request', async (req, res) => {
   }
 })
 
-server.listen(PORT, () => console.log(`listening port ${PORT}`))
+// server.listen(PORT, '192.168.31.155', () => {
+//   console.log(`listening port ${PORT}`)
+// })
+
+server.listen(PORT, () => {
+  console.log(`listening port ${PORT}`)
+})
