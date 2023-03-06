@@ -15,7 +15,7 @@ module.exports = class {
     req.on('data', (chunk) => {
       const { page, count } = JSON.parse(chunk)
       const start = (page - 1) * count
-      const end = Math.min((page * count) - 1, urls.length)
+      const end = Math.min(page * count, urls.length)
       for (let i = start; i < end; i++) {
         data.push({
           tag: i + 1,
