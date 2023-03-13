@@ -60,7 +60,7 @@ export default {
       type: String,
       default: 'hapi' // hapi|osiris
     },
-    // 扩展intersectionRect交叉区域，可以提前加载部分数据，优化用户浏览体验
+    // 扩展 intersectionRect 交叉区域，可以提前加载部分数据，优化用户浏览体验
     rootMargin: {
       type: String,
       default: '0px 0px 800px 0px'
@@ -133,6 +133,7 @@ export default {
         minCol = count % (this.col)
         return
       }
+      // 获取高度最小的列
       const heightList = this.$refs['cols'].map((item) => item.offsetHeight)
       const minHeight = Math.min(...heightList)
       minCol = heightList.indexOf(minHeight)
@@ -154,11 +155,14 @@ export default {
     waterfall() {
       this.updateMinCol()
       this.appendColData()
-      // 首屏采用并行渲染，非首屏采用串行渲染
       if (++count < this.firstPageCount) {
-        this.$nextTick(() => this.waterfall())
+        // 首屏采用并行渲染
+        this.waterfall()
       } else {
-        this.$nextTick(() => this.startObserver())
+        // 非首屏采用串行渲染
+        this.$nextTick(() => {
+          this.startObserver()
+        })
       }
     },
   },
